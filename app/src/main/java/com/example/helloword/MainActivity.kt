@@ -9,21 +9,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var age: Int = 10
-        var name: String = "tom"
-        var heights: Float = 1.80f
-        println("${name} a ${age} ans ")
-        age = 30
-        println("${name} a ${age} ans ")
-        age /= 2
-        println("${name} a ${age} ans ")
+        var age: Int = 7
+        var name: String = "Tom"
+        var height: Float = 1.50F
 
-        println("String template simple: $name à $age ans")
-        println("String template simple complexe : ${name.uppercase()} à ${age + 5} ans")
+        if ( age < 8 ) {
+            println("${name.uppercase()}  est encore jeune")
+        }
 
-        println("Concatenation : " + "Nom " + name + "Age " + age)
+        if ( age >= 7 && height >= 1.40) {
+            println("${name} peut faire du sky")
+        } else{
+            println("${name} ne peut pas encore faire du sky")
+        }
 
-        println("""Raw string : Nom : $name Age : $age ans """)
-
+        if (name == "Tom") {
+            println("${name} est un garçon")
+        }else if (name == "Fifi"){
+            println("${name} est une fille")
+        }else {
+            println("On ne connait pas le sexe de cette ${name} là")
+        }
     }
 }
