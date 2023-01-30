@@ -4,21 +4,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import java.util.*
 
+fun persAge (age: Int) : Boolean {
+    return age > 6
+}
+
+fun pers(name: String, age: Int, height: Float) {
+    var canPlayFoot = when(persAge(age)) {
+        true -> "Peut jouer au foot"
+        false -> "Peur pas jouer au foot"
+    }
+    println("${name} à ${age}ans, mesure ${height}m et ${canPlayFoot}")
+}
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Variable Mutable
-        var age: Int = 8
-        age = 4
-        println(age)
+        var name = "Tom"
+        var age = 12
+        var height = 1.5F
 
-        // Variable Immuable
-        val age: Int = 8
-        age = 4
-        println(age)
-
-
+        pers(name, age, height)
     }
 }
