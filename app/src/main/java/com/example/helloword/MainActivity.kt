@@ -9,23 +9,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var age: Int = 7
-        var name: String = "Tom"
-        var height: Float = 1.50F
+        //Variable Mutable
+        var age: Int = 8
+        age = 4
+        println(age)
 
-        when (name) {
-            "Tom" -> println("${name} est un chat");
-            "Chien" -> println("${name} est un chien")
-            else -> println("On ne connait pas le type de l'animal")
-        }
+        // Variable Immuable
+        val age: Int = 8
+        age = 4
+        println(age)
 
-        // Utilisation de when avec les intervalles
 
-        when (age) {
-            in 1..4 -> println("${name} est trop jeune")
-            in 6..9 -> println("${name} peut jouer au foot")
-            !in 1..18 -> println("${name} ne peut pas jouer avec les enfants")
-            else -> println("Condition non gérée")
-        }
     }
 }
