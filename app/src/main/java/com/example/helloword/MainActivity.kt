@@ -13,22 +13,19 @@ class MainActivity : AppCompatActivity() {
         var name: String = "Tom"
         var height: Float = 1.50F
 
-        if ( age < 8 ) {
-            println("${name.uppercase()}  est encore jeune")
+        when (name) {
+            "Tom" -> println("${name} est un chat");
+            "Chien" -> println("${name} est un chien")
+            else -> println("On ne connait pas le type de l'animal")
         }
 
-        if ( age >= 7 && height >= 1.40) {
-            println("${name} peut faire du sky")
-        } else{
-            println("${name} ne peut pas encore faire du sky")
-        }
+        // Utilisation de when avec les intervalles
 
-        if (name == "Tom") {
-            println("${name} est un garçon")
-        }else if (name == "Fifi"){
-            println("${name} est une fille")
-        }else {
-            println("On ne connait pas le sexe de cette ${name} là")
+        when (age) {
+            in 1..4 -> println("${name} est trop jeune")
+            in 6..9 -> println("${name} peut jouer au foot")
+            !in 1..18 -> println("${name} ne peut pas jouer avec les enfants")
+            else -> println("Condition non gérée")
         }
     }
 }
