@@ -9,26 +9,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        for (i in 1..6) {
-           println("Affichage de i ${i}")
-        }
-
-        for (i in 1..6 step 2) {
-            println("affiche de i par step de 2 ${i}")
-        }
-
-        for (i in 6 downTo 1) {
-            println("Affiche i de façon decroissante ${i}")
-        }
-
         val animaux: Array<String> = arrayOf("Chat", "Chien", "vache", "cheval")
 
-        for(i in 0..animaux.size) {
-            println("Affichage des animaux avec for ${animaux[i]}")
+        for ((index, animal) in animaux.withIndex()) {
+           println("$animal est à l'index $index")
         }
 
         for (animal in animaux) {
-            println("Affichage des animaux avec foreach ${animal}")
+            if (animal == "vache") {
+                println("${animal} animal est present n'est pas present")
+                continue
+            }
+            println("${animal} animal est present")
         }
 
     }
