@@ -9,18 +9,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val animaux: Array<String> = arrayOf("Chat", "Chien", "vache", "cheval")
+        var age = 10
 
-        for ((index, animal) in animaux.withIndex()) {
-           println("$animal est à l'index $index")
-        }
-
-        for (animal in animaux) {
-            if (animal == "vache") {
-                println("${animal} animal est present n'est pas present")
-                continue
-            }
-            println("${animal} animal est present")
+        while (age > 5) {
+            println("voilà l'age $age")
+            age --
         }
 
     }
