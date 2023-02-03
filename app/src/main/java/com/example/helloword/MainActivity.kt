@@ -2,19 +2,17 @@ package com.example.helloword
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import java.util.*
+
+import com.example.helloword.common.name
+import com.example.helloword.common.personne
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var age = 10
-
-        while (age > 5) {
-            println("voilà l'age $age")
-            age --
-        }
-
+        // name = "Jerry"
+        println("Name importer est $name")
+        personne()
     }
 }
