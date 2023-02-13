@@ -17,9 +17,18 @@
 
     <Button
         android:id="@+id/start_activity_green"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Green Activity"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/show_user_details_btn"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:text="Afficher le détail de user"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-8dp"
+        tools:layout_editor_absoluteY="607dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

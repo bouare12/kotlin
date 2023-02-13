@@ -21,5 +21,15 @@ class MainActivity : AppCompatActivity() {
             intent.action = Intent.ACTION_VIEW
             startActivity(intent)
         }
+
+        // Création de notre Objet
+        val user = User("Tom", 8)
+
+        this.findViewById<TextView>(R.id.show_user_details_btn).setOnClickListener {
+            val intentBtn = Intent(this, UserDetailActivity::class.java)
+            // Envoies de l'objet parcelabe vers User details
+            intentBtn.putExtra("User", user)
+            startActivity(intentBtn)
+        }
     }
 }
