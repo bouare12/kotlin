@@ -8,35 +8,10 @@
     tools:context=".MainActivity">
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Bouton"/>
-
-    <Button
+        android:id="@+id/show_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@android:drawable/ic_dialog_email"
-        android:text="Bouton"/>
-
-    <TextView
-        android:id="@+id/my_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ceci tu est textView"
-        android:textSize="25sp"
-        android:textStyle="italic"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_add"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/alert"
-        android:text="Mon Checkbox "
-        android:checked="true"/>
+        android:text="Afficher Dialogue"/>
 
 </LinearLayout>
