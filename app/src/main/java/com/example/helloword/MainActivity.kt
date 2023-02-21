@@ -3,6 +3,7 @@ package com.example.helloword
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -10,22 +11,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
-        findViewById<TextView>(R.id.show_button).setOnClickListener {
-          val fragment = ConfirmDelete()
-            fragment.listener = object: ConfirmDelete.ConfirmDeletePop {
-                override fun dialogPositiveClick() {
-                    Log.i("MainActivity", "dialogPositiveClick()")
-                    val fileListFrag = FileListDialog()
-                    fileListFrag.show(supportFragmentManager, "fileList")
-                }
-
-                override fun dialogNegativeClick() {
-                    Log.i("MainActivity", "dialogPositiveClick()")
-                }
-
-            }
-          fragment.show(supportFragmentManager, "ConfirmDelete")
-        }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
     }
 }
