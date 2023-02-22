@@ -2,43 +2,47 @@ package com.example.helloword
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.TextView
-import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
+    var country_list = arrayOf<String>("Afghanistan","Albania","Algeria","Andorra","Angola",
+        "Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria",
+        "Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize",
+        "Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil",
+        "British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon",
+        "Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands",
+        "Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic",
+        "Denmark","Djibouti","Dominica","Dominican Republic", "Ecuador","Egypt","El Salvador",
+        "Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland",
+        "France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany",
+        "Ghana","Gibraltar","Greece","Greenland", "Grenada","Guam","Guatemala","Guernsey","Guinea",
+        "Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland",
+        "India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica",
+        "Japan","Jersey","Jordan","Kazakhstan", "Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia",
+        "Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau",
+        "Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania",
+        "Mauritius","Mexico","Moldova","Monaco", "Mongolia","Montenegro","Montserrat","Morocco",
+        "Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia",
+        "New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine",
+        "Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal",
+        "Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon",
+        "Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone",
+        "Singapore","Slovakia","Slovenia","South Africa", "South Korea","Spain","Sri Lanka",
+        "St Kitts & Nevis", "St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland",
+        "Sweden", "Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este",
+        "Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey", "Turkmenistan","Turks & Caicos",
+        "Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela",
+        "Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe")
+
+    val adapter = CountryAdapter(country_list)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_add -> {
-                Toast.makeText(this, "Ajouter", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.action_delete -> {
-                Toast.makeText(this, "Supprimer", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.action_save -> {
-                Toast.makeText(this, "Enregister", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.action_help -> {
-                Toast.makeText(this, "Aide", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
+        val recyclerView = findViewById(R.id.country_recycle) as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
     }
 }
