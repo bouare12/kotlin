@@ -2,10 +2,12 @@ package com.example.helloword
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var country_list = arrayOf<String>("Afghanistan","Albania","Algeria","Andorra","Angola",
         "Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria",
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         "Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela",
         "Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe")
 
-    val adapter = CountryAdapter(country_list)
+    val adapter = CountryAdapter(country_list, this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,5 +46,13 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById(R.id.country_recycle) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+    }
+
+    override fun onClick(view: View) {
+        if (view.tag != null) {
+            val index = view.tag as Int
+            val country = country_list[index]
+            Toast.makeText(this, "Pays sélectionnée est : $country", Toast.LENGTH_SHORT).show()
+        }
     }
 }

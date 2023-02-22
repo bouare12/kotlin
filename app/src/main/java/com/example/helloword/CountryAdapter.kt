@@ -5,11 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class CountryAdapter (val countries: Array<String>) : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
+class CountryAdapter (val countries: Array<String>, val itemClickListner : View.OnClickListener)
+    : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
 
     class ViewHolder (itemview: View) : RecyclerView.ViewHolder(itemview) {
+        val cardView = itemview.findViewById(R.id.card_view) as CardView
         val icon = itemview.findViewById(R.id.icon) as ImageView
         val name = itemview.findViewById(R.id.name) as TextView
     }
@@ -28,5 +31,7 @@ class CountryAdapter (val countries: Array<String>) : RecyclerView.Adapter<Count
         val country = countries[position]
         holder.icon.setImageResource(R.mipmap.ic_launcher_round)
         holder.name.text = country
+        holder.cardView.tag = position
+        holder.cardView.setOnClickListener(itemClickListner)
     }
 }
