@@ -3,6 +3,7 @@ package com.example.helloword
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val recyclerView = findViewById(R.id.country_recycle) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        findViewById<TextView>(R.id.update_country).setOnClickListener { updateCountries() }
     }
 
     override fun onClick(view: View) {
@@ -54,5 +57,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val country = country_list[index]
             Toast.makeText(this, "Pays sélectionnée est : $country", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun updateCountries () {
+        val  lastLetter = country_list[0].last()
+
+        for ((index, country) in country_list.withIndex()) {
+            if (lastLetter.isUpperCase()) {
+                country_list[index] = country.lowercase()
+            }else {
+                country_list[index] = country.uppercase()
+            }
+        }
+        adapter.notifyDataSetChanged()
     }
 }
