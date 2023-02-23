@@ -2,73 +2,10 @@ package com.example.helloword
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
-
-    var country_list = arrayOf<String>("Afghanistan","Albania","Algeria","Andorra","Angola",
-        "Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria",
-        "Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize",
-        "Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil",
-        "British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon",
-        "Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands",
-        "Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic",
-        "Denmark","Djibouti","Dominica","Dominican Republic", "Ecuador","Egypt","El Salvador",
-        "Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland",
-        "France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany",
-        "Ghana","Gibraltar","Greece","Greenland", "Grenada","Guam","Guatemala","Guernsey","Guinea",
-        "Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland",
-        "India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica",
-        "Japan","Jersey","Jordan","Kazakhstan", "Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia",
-        "Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau",
-        "Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania",
-        "Mauritius","Mexico","Moldova","Monaco", "Mongolia","Montenegro","Montserrat","Morocco",
-        "Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia",
-        "New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine",
-        "Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal",
-        "Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon",
-        "Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone",
-        "Singapore","Slovakia","Slovenia","South Africa", "South Korea","Spain","Sri Lanka",
-        "St Kitts & Nevis", "St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland",
-        "Sweden", "Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este",
-        "Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey", "Turkmenistan","Turks & Caicos",
-        "Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela",
-        "Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe")
-
-    val adapter = CountryAdapter(country_list, this)
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val recyclerView = findViewById(R.id.country_recycle) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-        findViewById<TextView>(R.id.update_country).setOnClickListener { updateCountries() }
-    }
-
-    override fun onClick(view: View) {
-        if (view.tag != null) {
-            val index = view.tag as Int
-            val country = country_list[index]
-            Toast.makeText(this, "Pays sélectionnée est : $country", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun updateCountries () {
-        val  lastLetter = country_list[0].last()
-
-        for ((index, country) in country_list.withIndex()) {
-            if (lastLetter.isUpperCase()) {
-                country_list[index] = country.lowercase()
-            }else {
-                country_list[index] = country.uppercase()
-            }
-        }
-        adapter.notifyDataSetChanged()
     }
 }
