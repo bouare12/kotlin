@@ -1,6 +1,5 @@
 package com.example.helloword
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        findViewById<FloatingActionButton>(R.id.create_note_fab).setOnClickListener(this)
 
         notes = mutableListOf<Note>()
         notes.add(Note("Note 1", "tototototatatat"))
@@ -49,7 +51,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         if (view.tag != null) {
             showNoteDetail(view.tag as Int)
+        } else {
+            when(view.id) {
+                R.id.create_note_fab -> createNewNote()
+            }
         }
+    }
+
+    private fun createNewNote() {
+        showNoteDetail(-1)
     }
 
     private fun processEditNoteResult(data: Intent) {
@@ -61,13 +71,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun saveNote(note: Note, noteIndex: Int) {
-        notes[noteIndex] = note
+        if (noteIndex < 0) {
+            notes.add(0,note)
+        } else {
+            notes[noteIndex] = note
+        }
         adapter.notifyDataSetChanged()
     }
 
     fun showNoteDetail(noteIndex: Int) {
-        val note = notes[noteIndex]
-
+        val note = if (noteIndex < 0) Note() else notes[noteIndex]
         val intent = Intent(this, NoteDetailActivity::class.java)
         intent.putExtra(NoteDetailActivity.EXTRAT_NOTE, note)
         intent.putExtra(NoteDetailActivity.EXTRAT_NOTE_INDEX, note)
