@@ -1,5 +1,7 @@
 package com.example.helloword
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 class NoteDetailActivity : AppCompatActivity() {
 
     companion object {
+        val REQUES_EDIT_NOTE = 1
         val EXTRAT_NOTE = "note"
         val EXTRAT_NOTE_INDEX = "noteIndex"
     }
@@ -45,11 +48,23 @@ class NoteDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        return when(item.itemId) {
             R.id.action_save -> {
-                return true
+                saveNote()
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun saveNote() {
+        note.title = titleView.text.toString()
+        note.text = textView.text.toString()
+
+        intent = Intent()
+        intent.putExtra(EXTRAT_NOTE, note)
+        intent.putExtra(EXTRAT_NOTE_INDEX, noteIndex)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }

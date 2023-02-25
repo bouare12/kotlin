@@ -1,10 +1,11 @@
 package com.example.helloword
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,10 +35,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         recyclerView.adapter = adapter
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK || data == null) {
+            return
+        }
+        when (requestCode) {
+            NoteDetailActivity.REQUES_EDIT_NOTE -> processEditNoteResult(data)
+        }
+    }
+
     override fun onClick(view: View) {
         if (view.tag != null) {
             showNoteDetail(view.tag as Int)
         }
+    }
+
+    private fun processEditNoteResult(data: Intent) {
+        val noteIndex = data.getIntExtra(NoteDetailActivity.EXTRAT_NOTE_INDEX, -1)
+        val note = data.getParcelableExtra<Note>(NoteDetailActivity.EXTRAT_NOTE)
+        if (note != null) {
+            saveNote(note, noteIndex)
+        }
+    }
+
+    private fun saveNote(note: Note, noteIndex: Int) {
+        notes[noteIndex] = note
+        adapter.notifyDataSetChanged()
     }
 
     fun showNoteDetail(noteIndex: Int) {
@@ -46,6 +71,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this, NoteDetailActivity::class.java)
         intent.putExtra(NoteDetailActivity.EXTRAT_NOTE, note)
         intent.putExtra(NoteDetailActivity.EXTRAT_NOTE_INDEX, note)
-        startActivity(intent)
+        startActivityForResult(intent, NoteDetailActivity.REQUES_EDIT_NOTE)
     }
 }
