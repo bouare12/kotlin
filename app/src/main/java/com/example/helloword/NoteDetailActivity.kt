@@ -15,6 +15,9 @@ class NoteDetailActivity : AppCompatActivity() {
         val REQUES_EDIT_NOTE = 1
         val EXTRAT_NOTE = "note"
         val EXTRAT_NOTE_INDEX = "noteIndex"
+
+        val ACTION_SAVE_NOTE = "com.example.helloword.actions.ACTION_SAVE_NOTE"
+        val ACTION_DELETE_NOTE = "com.example.helloword.actions.ACTION_DELETE_NOTE"
     }
 
     lateinit var note: Note
@@ -33,7 +36,7 @@ class NoteDetailActivity : AppCompatActivity() {
 
         // val user = intent.getParcelableExtra<User>("User")
         note = intent.getParcelableExtra<Note>(EXTRAT_NOTE)!!
-        noteIndex = intent.getIntExtra(EXTRAT_NOTE_INDEX, -1)
+        noteIndex = intent.getIntExtra(EXTRAT_NOTE_INDEX, noteIndex)
 
         titleView = findViewById(R.id.title)
         textView = findViewById(R.id.text)
@@ -53,15 +56,38 @@ class NoteDetailActivity : AppCompatActivity() {
                 saveNote()
                 true
             }
+            R.id.action_delete -> {
+                showConfirmDelteDialog()
+                 return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showConfirmDelteDialog() {
+
+        val confirmFragment = ConfirmDeleteNoteDialog(note.title)
+        confirmFragment.listener = object :ConfirmDeleteNoteDialog.ConfirmDeleteDialogListener {
+            override fun onDialogPositiveClick() {
+                deleteNote ()
+            }
+            override fun onDialogNegativeClick() {}
+        }
+        confirmFragment.show(supportFragmentManager,"ConfirmDeleteDialog")
+    }
+
+    fun deleteNote () {
+        intent = Intent(ACTION_DELETE_NOTE)
+        intent.putExtra(EXTRAT_NOTE_INDEX, noteIndex)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     fun saveNote() {
         note.title = titleView.text.toString()
         note.text = textView.text.toString()
 
-        intent = Intent()
+        intent = Intent(ACTION_SAVE_NOTE)
         intent.putExtra(EXTRAT_NOTE, note)
         intent.putExtra(EXTRAT_NOTE_INDEX, noteIndex)
         setResult(Activity.RESULT_OK, intent)

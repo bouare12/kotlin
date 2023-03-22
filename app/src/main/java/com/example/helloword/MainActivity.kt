@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var notes: MutableList<Note>
@@ -63,18 +64,37 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun processEditNoteResult(data: Intent) {
-        val noteIndex = data.getIntExtra(NoteDetailActivity.EXTRAT_NOTE_INDEX, -1)
-        val note = data.getParcelableExtra<Note>(NoteDetailActivity.EXTRAT_NOTE)
-        if (note != null) {
-            saveNote(note, noteIndex)
+        val noteIndex = data.getIntExtra(NoteDetailActivity.EXTRAT_NOTE_INDEX, 0)
+        when (data.action) {
+            NoteDetailActivity.ACTION_SAVE_NOTE -> {
+                val note = data.getParcelableExtra<Note>(NoteDetailActivity.EXTRAT_NOTE)
+                if (note != null) {
+                    saveNote(note, noteIndex)
+                }
+            }
+            NoteDetailActivity.ACTION_DELETE_NOTE -> {
+                println("Index For Delete est $noteIndex")
+                deleteNote(noteIndex)
+            }
         }
+        
     }
+
 
     private fun saveNote(note: Note, noteIndex: Int) {
         if (noteIndex < 0) {
             notes.add(0,note)
         } else {
             notes[noteIndex] = note
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun deleteNote(noteIndex: Int) {
+        if (noteIndex < 0 ) {
+            return
+        }else{
+            val note = notes.removeAt(noteIndex)
         }
         adapter.notifyDataSetChanged()
     }
