@@ -1,5 +1,6 @@
 package com.example.helloword
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -7,18 +8,21 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helloword.utils.deleteNotePserist
 import com.example.helloword.utils.loadNotes
 import com.example.helloword.utils.persistNote
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var notes: MutableList<Note>
     lateinit var adapter: NoteAdapter
+    lateinit var coordinateurLayout : CoordinatorLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val recyclerView = findViewById<RecyclerView>(R.id.notes_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        coordinateurLayout = findViewById(R.id.coordinator_layout)
     }
 
 
@@ -90,14 +96,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         adapter.notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun deleteNote(noteIndex: Int) {
         if (noteIndex < 0 ) {
             return
         }else{
             val note = notes.removeAt(noteIndex)
             deleteNotePserist(this, note)
+            adapter.notifyDataSetChanged()
+            Snackbar.make(coordinateurLayout, "${note.title} supprimé", Snackbar.LENGTH_SHORT).show()
         }
-        adapter.notifyDataSetChanged()
     }
 
     fun showNoteDetail(noteIndex: Int) {
