@@ -3,7 +3,6 @@ package com.example.helloword
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
